@@ -6,7 +6,7 @@
   <title>Easy_WhatsApp | By-DF</title>
 
   <!-- PWA -->
-  <meta name="theme-color" content="#075E54" />
+  <meta name="theme-color" content="#25D366" />
   <link rel="manifest" href="manifest.json" />
   <link rel="icon" type="image/png" href="icons/favicon.png" />
   <link rel="apple-touch-icon" href="icons/icon-192.png" />
@@ -18,70 +18,45 @@
   <meta name="apple-mobile-web-app-title" content="WA Sender" />
 
   <style>
-    /* Reset e layout */
+    /* Reset robusto per evitare sovrapposizioni */
     *, *::before, *::after { box-sizing: border-box; }
     html, body { height: 100%; }
     :root { color-scheme: light dark; }
-
     body {
       margin: 0;
       font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-      background: #ece5dd; /* sfondo stile WhatsApp */
+      background: #f6f7f7;
       color: #111;
-      padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
-      display: flex; flex-direction: column; min-height: 100vh;
+      padding: max(16px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(16px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+      display: flex; align-items: center; justify-content: center;
     }
 
-    /* Header in stile WhatsApp */
-    .wa-header {
-      background: linear-gradient(0deg,#075E54,#075E54);
-      color: #fff;
-      padding: 12px 16px;
-      display: flex; align-items: center; gap: 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,.15);
-      position: sticky; top: 0; z-index: 10;
-    }
-    .wa-logo {
-      width: 28px; height: 28px; display:inline-flex; align-items:center; justify-content:center;
-      border-radius: 50%; background:#25D366; font-weight: 700;
-      color:#fff; font-size: 18px;
-    }
-    .wa-title { margin: 0; font-size: 18px; font-weight: 600; }
-
-    /* Wrapper centrale */
     .app-wrap {
       width: 100%;
-      max-width: 680px;
-      margin: 18px auto;
-      padding: 0 12px 24px;
+      max-width: 640px;
+      padding: 16px;
     }
 
-    /* Card contenuto */
     .app-card {
       background: #fff;
-      border-radius: 14px;
-      padding: 16px;
-      box-shadow: 0 8px 24px rgba(0,0,0,.06);
-      border: 1px solid rgba(0,0,0,.04);
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 4px 24px rgba(0,0,0,.06);
+      border: 1px solid rgba(0,0,0,.06);
     }
 
-    /* Titolo sezione */
-    .section-title {
-      display:flex; align-items:center; gap:8px;
-      margin: 0 0 10px 0; font-size: 18px; color:#075E54; font-weight:700;
-    }
+    h1 { margin: 0 0 12px 0; font-size: 22px; }
 
-    /* Form */
     .form-grid {
       display: grid;
       grid-template-columns: 1fr;
       gap: 12px;
     }
 
-    .row-2 {
+    .inline-2 {
       display: grid;
-      grid-template-columns: 1fr 2fr;
-      gap: 10px;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
     }
 
     label { font-size: 13px; color: #333; display: block; margin-bottom: 6px; }
@@ -89,34 +64,28 @@
     input, select, textarea, button {
       width: 100%;
       font-size: 16px;
-      border: 1px solid #dfe5e7;
+      border: 1px solid #e1e3e4;
       border-radius: 10px;
       padding: 12px 14px;
       background: #fff;
     }
-    input::placeholder, textarea::placeholder { color:#9aa5ac; }
-    textarea { resize: vertical; min-height: 110px; }
+    textarea { resize: vertical; min-height: 100px; }
 
-    .flag-option { font-size: 16px; } /* per emoji in <option> */
-
-    .primary-btn {
-      background: #25D366; color: #fff; border: none; font-weight: 700;
-      border-radius: 999px; padding: 12px 16px;
-      display: inline-flex; align-items: center; gap: 10px; justify-content: center;
+    button.primary {
+      background: #25D366; color: #fff; border: none; font-weight: 600;
     }
-    .primary-btn:disabled { opacity: .6; cursor: not-allowed; }
-    .btn-row { display:flex; justify-content:flex-end; }
+    button.primary:disabled { opacity: .6; cursor: not-allowed; }
 
-    .errors { display: grid; gap: 8px; margin: 8px 0 6px 0; }
+    .errors { display: grid; gap: 8px; margin: 10px 0 6px 0; }
     .error {
       background: #ffe6e6; color: #8a1111; border: 1px solid #ffb3b3;
       padding: 10px 12px; border-radius: 10px; font-size: 14px;
     }
 
-    /* Banner install */
+    /* Install banner */
     .install-banner {
       display: none;
-      margin: 0 0 16px;
+      margin: 12px 0 16px;
       padding: 12px;
       border: 1px dashed #b7e7c9;
       background: #f1fdf6;
@@ -132,7 +101,7 @@
     /* iOS tip */
     .ios-tip {
       display: none;
-      margin: 0 0 16px;
+      margin: 12px 0 16px;
       padding: 12px;
       border: 1px dashed #d8d8d8;
       background: #fafafa;
@@ -141,18 +110,10 @@
     }
     .ios-tip.show { display: block; }
 
-    /* Responsive migliorato */
-    @media (min-width: 640px) {
-      .app-card { padding: 20px; }
-      .row-2 { grid-template-columns: 1.2fr 2fr; gap: 12px; }
-    }
-
-    /* Dark mode */
     @media (prefers-color-scheme: dark) {
-      body { background: #121b22; color: #eaeaea; }
-      .wa-header { background: #0b3e36; }
-      .app-card { background: #0e171c; border-color: #1f2b31; }
-      input, select, textarea { background: #0b141a; border-color: #1f2b31; color: #eaeaea; }
+      body { background: #0f1112; color: #eaeaea; }
+      .app-card { background: #151718; border-color: #242627; }
+      input, select, textarea { background: #0f1112; border-color: #2a2c2d; color: #eaeaea; }
       .error { background:#3b0b0b; color:#ffd6d6; border-color:#6b1b1b; }
       .install-banner { background: #0f1a14; border-color: #1f3c2b; }
       .ios-tip { background: #141516; border-color: #2a2c2d; }
@@ -160,16 +121,13 @@
   </style>
 </head>
 <body>
-  <div class="wa-header">
-    <div class="wa-logo">WA</div>
-    <h1 class="wa-title">Easy WhatsApp</h1>
-  </div>
+  <noscript>Per usare questa web app, abilita JavaScript.</noscript>
 
   <div class="app-wrap">
     <!-- Banner install -->
     <div id="installBanner" class="install-banner">
       <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;">
-        <div><strong>Installa l’app</strong><div style="font-size:13px;">Accesso rapido e offline.</div></div>
+        <div><strong>Installa l’app</strong><div style="font-size:13px;">Accedi più velocemente e usa la modalità offline.</div></div>
         <div style="display:flex; gap:8px;">
           <button id="installBtn" class="install-cta">Installa</button>
           <button id="dismissBtn" class="install-cta" style="background:#2d333a;">Chiudi</button>
@@ -184,32 +142,37 @@
 
     <div class="app-card">
       <div id="app">
-        <div class="section-title">✉️ Invia messaggio WhatsApp</div>
+        <h1>Invia messaggio WhatsApp</h1>
 
         <div class="errors" v-if="errors.length">
           <div class="error" v-for="(e,i) in errors" :key="i">{{ e }}</div>
         </div>
 
         <div class="form-grid">
-          <div class="row-2">
+          <div>
+            <label for="prefix">Prefisso internazionale</label>
+            <select id="prefix" v-model="selectedPrefix">
+              <option v-for="p in prefixes" :key="p.code" :value="p.code">{{ p.label }}</option>
+              <option value="custom">Altro...</option>
+            </select>
+          </div>
+
+          <div v-if="selectedPrefix === 'custom'">
+            <label for="manualPrefix">Inserisci prefisso (solo numeri, senza +)</label>
+            <input id="manualPrefix" v-model="manualPrefix" @input="digitsOnly('manualPrefix')" placeholder="es. 212 (Marocco)" />
+          </div>
+
+          <div class="inline-2">
             <div>
-              <label for="prefix">Prefisso</label>
-              <select id="prefix" v-model="selectedPrefix" class="flag-option">
-                <option v-for="p in prefixes" :key="p.code" :value="p.code">
-                  {{ p.flag }} {{ p.label }}
-                </option>
-                <option value="custom">➕ Altro…</option>
-              </select>
-            </div>
-
-            <div v-if="selectedPrefix === 'custom'">
-              <label for="manualPrefix">Prefisso personalizzato (solo numeri, senza +)</label>
-              <input id="manualPrefix" v-model="manualPrefix" @input="digitsOnly('manualPrefix')" placeholder="es. 212 (Marocco)" />
-            </div>
-
-            <div v-else>
               <label for="phone">Numero (senza prefisso)</label>
               <input id="phone" type="tel" v-model="phone" inputmode="numeric" placeholder="es. 3491234567" @input="digitsOnly('phone')" />
+            </div>
+            <div>
+              <label for="trimRules">Pulizia numero</label>
+              <select id="trimRules" v-model="trimRule">
+                <option value="none">Nessuna</option>
+                <option value="strip-leading-0">Rimuovi 0 iniziale</option>
+              </select>
             </div>
           </div>
 
@@ -218,11 +181,9 @@
             <textarea id="message" v-model="message" maxlength="1000" placeholder="Scrivi qui il messaggio..."></textarea>
           </div>
 
-          <div class="btn-row">
-            <button class="primary-btn" @click="redirect" :disabled="loading">
-              {{ loading ? 'Apro WhatsApp…' : 'Invia su WhatsApp' }}
-            </button>
-          </div>
+          <button class="primary" @click="redirect" :disabled="loading">
+            {{ loading ? 'Apro WhatsApp...' : 'Invia su WhatsApp' }}
+          </button>
         </div>
       </div>
     </div>
@@ -232,7 +193,7 @@
   <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.min.js" defer></script>
   <script src="app.js" defer></script>
 
-  <!-- Service Worker + Install -->
+  <!-- Service Worker -->
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
@@ -241,6 +202,7 @@
       });
     }
 
+    // Install prompt handling
     (function() {
       const banner = document.getElementById('installBanner');
       const btn = document.getElementById('installBtn');
@@ -257,24 +219,30 @@
       let deferredPrompt = null;
 
       window.addEventListener('beforeinstallprompt', (e) => {
+        // Blocca il prompt auto
         e.preventDefault();
         deferredPrompt = e;
         banner.classList.add('show');
       });
 
-      btn?.addEventListener('click', async () => {
-        if (!deferredPrompt) {
-          alert('Se non compare il prompt, apri il menu del browser e scegli “Installa app”.');
-          return;
-        }
-        banner.classList.remove('show');
-        deferredPrompt.prompt();
-        const choice = await deferredPrompt.userChoice;
-        deferredPrompt = null;
-      });
+      if (btn) {
+        btn.addEventListener('click', async () => {
+          if (!deferredPrompt) return;
+          banner.classList.remove('show');
+          deferredPrompt.prompt();
+          const choice = await deferredPrompt.userChoice;
+          deferredPrompt = null;
+          if (choice.outcome !== 'accepted') {
+            // Se rifiuta, puoi riproporlo in futuro
+          }
+        });
+      }
 
-      dismiss?.addEventListener('click', () => banner.classList.remove('show'));
+      if (dismiss) {
+        dismiss.addEventListener('click', () => banner.classList.remove('show'));
+      }
 
+      // Se l’app è già installata, nascondi banner
       window.addEventListener('appinstalled', () => {
         banner.classList.remove('show');
         iosTip.classList.remove('show');

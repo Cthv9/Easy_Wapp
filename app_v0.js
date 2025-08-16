@@ -2,23 +2,24 @@ new Vue({
   el: '#app',
   data: {
     prefixes: [
-      { code: '39',  flag: '🇮🇹', label: 'Italia (+39)' },
-      { code: '1',   flag: '🇺🇸', label: 'USA/Canada (+1)' },
-      { code: '44',  flag: '🇬🇧', label: 'Regno Unito (+44)' },
-      { code: '49',  flag: '🇩🇪', label: 'Germania (+49)' },
-      { code: '33',  flag: '🇫🇷', label: 'Francia (+33)' },
-      { code: '34',  flag: '🇪🇸', label: 'Spagna (+34)' },
-      { code: '41',  flag: '🇨🇭', label: 'Svizzera (+41)' },
-      { code: '43',  flag: '🇦🇹', label: 'Austria (+43)' },
-      { code: '351', flag: '🇵🇹', label: 'Portogallo (+351)' },
-      { code: '31',  flag: '🇳🇱', label: 'Paesi Bassi (+31)' },
-      { code: '91',  flag: '🇮🇳', label: 'India (+91)' },
-      { code: '81',  flag: '🇯🇵', label: 'Giappone (+81)' }
+      { code: '39', label: 'Italia (+39)' },
+      { code: '1',  label: 'USA/Canada (+1)' },
+      { code: '44', label: 'Regno Unito (+44)' },
+      { code: '49', label: 'Germania (+49)' },
+      { code: '33', label: 'Francia (+33)' },
+      { code: '34', label: 'Spagna (+34)' },
+      { code: '41', label: 'Svizzera (+41)' },
+      { code: '43', label: 'Austria (+43)' },
+      { code: '351', label: 'Portogallo (+351)' },
+      { code: '31', label: 'Paesi Bassi (+31)' },
+      { code: '91', label: 'India (+91)' },
+      { code: '81', label: 'Giappone (+81)' }
     ],
     selectedPrefix: '39',
     manualPrefix: '',
     phone: '',
     message: '',
+    trimRule: 'none', // 'none' | 'strip-leading-0'
     errors: [],
     loading: false
   },
@@ -29,15 +30,23 @@ new Vue({
     getFullPrefix() {
       return this.selectedPrefix === 'custom' ? this.manualPrefix : this.selectedPrefix;
     },
+    applyTrimRules(localNumber) {
+      let out = localNumber;
+      if (this.trimRule === 'strip-leading-0') {
+        out = out.replace(/^0+/, '');
+      }
+      return out;
+    },
     validate() {
       this.errors = [];
       const prefix = this.getFullPrefix();
-      const local = (this.phone || '').trim();
+      let local = (this.phone || '').trim();
+      local = this.applyTrimRules(local);
 
       if (!prefix) {
-        this.errors.push('Seleziona o inserisci un prefisso.');
+        this.errors.push('Inserisci o seleziona un prefisso.');
       } else if (!/^\d{1,4}$/.test(prefix)) {
-        this.errors.push('Il prefisso deve essere numerico (1–4 cifre).');
+        this.errors.push('Il prefisso deve essere numerico (max 4 cifre).');
       }
 
       if (!local) {
@@ -52,6 +61,7 @@ new Vue({
         this.errors.push('Messaggio troppo lungo (max 1000 caratteri).');
       }
 
+      this.phone = local;
       return this.errors.length === 0;
     },
     redirect() {
