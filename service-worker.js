@@ -1,12 +1,14 @@
 /* Simple App-Shell SW */
-const CACHE_NAME = 'wa-sender-v1';
+const CACHE_NAME = 'wa-sender-v2';
 const APP_SHELL = [
   './',
   './index.html',
   './app.js',
-  './manifest.webmanifest',
+  './manifest.json',
   './offline.html',
-  // CDN assets can be cached at runtime; lasciamo la lista core leggera.
+  './icons/icon-192.png',
+  './icons/icon-512.png',
+  './icons/favicon.png'
 ];
 
 self.addEventListener('install', (event) => {
@@ -25,16 +27,11 @@ self.addEventListener('activate', (event) => {
   self.clients.claim();
 });
 
-/* Strategy:
-   - App-shell: cache-first
-   - Cross-origin (CDN): network-first con fallback cache
-   - Navigazioni: offline fallback a offline.html
-*/
 self.addEventListener('fetch', (event) => {
   const req = event.request;
   const url = new URL(req.url);
 
-  // Navigazioni (document)
+  // Navigazioni
   if (req.mode === 'navigate') {
     event.respondWith(
       fetch(req).catch(() => caches.match('./offline.html'))

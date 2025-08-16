@@ -1,7 +1,8 @@
 {
-  "name": "WhatsApp Quick Sender",
+  "name": "Easy_WhatsApp|By-DF",
   "short_name": "WA Sender",
-  "start_url": ".",
+  "start_url": "/Easy_Wapp/",
+  "scope": "/Easy_Wapp/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#25D366",
@@ -9,7 +10,6 @@
   "icons": [
     { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
     { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
-    { "src": "icons/maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
-    { "src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+    { "src": "icons/favicon.png", "sizes": "64x64", "type": "image/png" }
   ]
 }
