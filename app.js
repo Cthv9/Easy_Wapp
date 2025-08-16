@@ -3,11 +3,17 @@ new Vue({
   data: {
     prefixes: [
       { code: '39', label: 'Italia (+39)' },
+      { code: '1',  label: 'USA/Canada (+1)' },
       { code: '44', label: 'Regno Unito (+44)' },
       { code: '49', label: 'Germania (+49)' },
       { code: '33', label: 'Francia (+33)' },
       { code: '34', label: 'Spagna (+34)' },
+      { code: '41', label: 'Svizzera (+41)' },
+      { code: '43', label: 'Austria (+43)' },
       { code: '351', label: 'Portogallo (+351)' },
+      { code: '31', label: 'Paesi Bassi (+31)' },
+      { code: '91', label: 'India (+91)' },
+      { code: '81', label: 'Giappone (+81)' }
     ],
     selectedPrefix: '39',
     manualPrefix: '',
@@ -34,7 +40,7 @@ new Vue({
     validate() {
       this.errors = [];
       const prefix = this.getFullPrefix();
-      let local = this.phone.trim();
+      let local = (this.phone || '').trim();
       local = this.applyTrimRules(local);
 
       if (!prefix) {
@@ -49,15 +55,13 @@ new Vue({
         this.errors.push('Il numero deve contenere tra 7 e 11 cifre.');
       }
 
-      if (!this.message.trim()) {
+      if (!(this.message || '').trim()) {
         this.errors.push('Scrivi un messaggio.');
       } else if (this.message.length > 1000) {
         this.errors.push('Messaggio troppo lungo (max 1000 caratteri).');
       }
 
-      // salva il numero eventualmente normalizzato
       this.phone = local;
-
       return this.errors.length === 0;
     },
     redirect() {
