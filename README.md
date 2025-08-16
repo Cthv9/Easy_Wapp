@@ -37,9 +37,11 @@ Easy_Wapp/
 │ └── icon-512.png
 └── README.md # Questo file
 
-📲 Come usare
+---
 
-Seleziona il prefisso (es. 🇮🇹 Italia).
+## 📲 Come usare
+
+Seleziona il prefisso (es. Italia).
 
 Inserisci il numero senza prefisso.
 
@@ -47,7 +49,9 @@ Scrivi il messaggio.
 
 Clicca Invia su WhatsApp → si aprirà WhatsApp Web / App con chat pronta.
 
-📦 Tecnologie usate
+---
+
+## 📦 Tecnologie usate
 
 Vue.js 2
 
@@ -58,3 +62,26 @@ Service Worker
 PWA (manifest, offline, icone)
 
 GitHub Pages
+
+
+---
+
+## 👤 Autore
+
+Made with ❤️ by DF
+
+
+
+---
+
+## 🤝 Supporto
+
+Lo sviluppo e la messa a punto di Easy_Wapp sono stati supportati con l’aiuto di ChatGPT (OpenAI), che ha contribuito a:
+
+refactoring del codice Vue,
+
+aggiunta delle funzionalità PWA (manifest, service worker, icone),
+
+creazione del README e ottimizzazione per GitHub Pages.
+
+Un grazie speciale per l’assistenza tecnica e il miglioramento del progetto 🚀
