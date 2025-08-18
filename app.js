@@ -14,6 +14,8 @@ new Vue({
       { code: '31',  flag: '🇳🇱', label: 'Paesi Bassi (+31)' },
       { code: '91',  flag: '🇮🇳', label: 'India (+91)' },
       { code: '81',  flag: '🇯🇵', label: 'Giappone (+81)' }
+	  { code: '90', flag: '🇹🇷', label: 'Turchia (+90)' },
+	  { code: '30', flag: '🇬🇷', label: 'Grecia (+30)' }
     ],
     selectedPrefix: '39',
     manualPrefix: '',
